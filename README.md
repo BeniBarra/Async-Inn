@@ -6,8 +6,7 @@ Benjamin Ibarra
 
 
 ## Colaborators
-Joshua Haddock  
-Steven Boston  
+Dave Arno  
 
 ## Visual
 ![ERD](./ERD.png)
