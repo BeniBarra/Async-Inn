@@ -14,6 +14,42 @@ namespace AsyncInn.Data
         public DbSet<Room> Rooms { get; set; }
         public AsyncInnDbContext(DbContextOptions options) : base(options)
         {
+
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // This calls the base method, but does nothing
+            // base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Hotel>().HasData(
+                    new Hotel
+                    {
+                        Id = 1,
+                        Name = "Async Inn",
+                        StreetAddress = "42nd and Broadway",
+                        City = "New York",
+                        State = "New York",
+                        Country = "US",
+                        Phone = "917-555-1234"
+                    }
+                );
+            modelBuilder.Entity<Amenity>().HasData(
+                  new Amenity
+                  {
+                      Id = 2,
+                      Name = "Amenities 1",
+                      Layout = 1
+                  }
+                );
+            modelBuilder.Entity<Room>().HasData(
+                  new Room
+                  {
+                      Id = 3,
+                      Name = "Room 1",
+                      Layout = 1
+                  }
+                );
         }
     }
 }

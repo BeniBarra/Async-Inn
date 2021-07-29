@@ -1,11 +1,14 @@
 # Async-Inn
 
+## Lab-13
+Created services for the models, to hand off request tasks from the default methods created by the controller to the services with implemented interfaces for each corresponding model
 
 ## Author
 Benjamin Ibarra  
 
 
 ## Colaborators
+Q Hashi  
 Dave Arno  
 
 ## Visual
