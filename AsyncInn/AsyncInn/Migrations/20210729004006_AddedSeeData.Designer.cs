@@ -3,14 +3,16 @@ using AsyncInn.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AsyncInn.Migrations
 {
     [DbContext(typeof(AsyncInnDbContext))]
-    partial class SchoolDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210729004006_AddedSeeData")]
+    partial class AddedSeeData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,7 +43,13 @@ namespace AsyncInn.Migrations
                         {
                             Id = 2,
                             Layout = 1,
-                            Name = "Amenities 1"
+                            Name = "Async Inn"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Layout = 1,
+                            Name = "Async Inn"
                         });
                 });
 
@@ -110,14 +118,6 @@ namespace AsyncInn.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Rooms");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 3,
-                            Layout = 1,
-                            Name = "Room 1"
-                        });
                 });
 #pragma warning restore 612, 618
         }
