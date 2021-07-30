@@ -13,7 +13,9 @@ namespace AsyncInn.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        [Required]
-        public int Layout { get; set; }
+
+        //Navigation properties
+        public RoomAmenities RoomAmenities { get; set; }
+
     }
 }
