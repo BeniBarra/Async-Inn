@@ -49,5 +49,14 @@ namespace AsyncInn.Models.Interfaces.Services
             await _context.SaveChangesAsync();
         }
 
+        public Task AddAmenityToRoom(int roomId, int amenityId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveAmenityFromRoom(int roomId, int amenityId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

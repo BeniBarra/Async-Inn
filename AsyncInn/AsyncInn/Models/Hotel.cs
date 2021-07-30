@@ -23,5 +23,8 @@ namespace AsyncInn.Models
         public string Country { get; set; }
         [Required]
         public string Phone { get; set; }
+
+        //Navigation properties
+        public List<HotelRoom> HotelRoom { get; set; }
     }
 }
