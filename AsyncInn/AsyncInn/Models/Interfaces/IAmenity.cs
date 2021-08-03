@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AsyncInn.Models.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace AsyncInn.Models.Interfaces
 
         Task<List<Amenity>> GetAllAmenities();
 
-        Task<Amenity> GetAmenity(int id);
+        Task<AmenityDTO> GetAmenity(int id);
 
         Task<Amenity> UpdateAmenity(int id, Amenity amenity);
 

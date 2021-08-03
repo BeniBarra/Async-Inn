@@ -9,17 +9,13 @@ namespace AsyncInn.Models
     {
         public int HotelId { get; set; }
 
-        public int RoomNumber { get; set; }
-
         public int RoomId { get; set; }
 
-        public decimal Rate { get; set; }
-
-        public byte PetFriendly { get; set; }
+        public int RoomNumber { get; set; }
 
         //Navigation properties
         public Hotel Hotel { get; set; }
 
-        public Room room { get; set; }
+        public Room Room { get; set; }
     }
 }

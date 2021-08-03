@@ -1,4 +1,5 @@
 ﻿using AsyncInn.Data;
+using AsyncInn.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -29,10 +30,16 @@ namespace AsyncInn.Models.Interfaces.Services
             return amenities;
         }
 
-        public async Task<Amenity> GetAmenity(int id)
+        public async Task<AmenityDTO> GetAmenity(int id)
         {
-            Amenity amenity = await _context.Amenities.FindAsync(id);
-            return amenity;
+            //Amenity amenity = await _context.Amenities.FindAsync(id);
+            //return amenity;
+            return await _context.Amenities
+                .Select(amenity => new AmenityDTO
+                {
+                    Id = amenity.Id,
+                    Name = amenity.Name
+                }).FirstOrDefaultAsync(a => a.Id == id);
         }
 
         public async Task<Amenity> UpdateAmenity(int id, Amenity amenity)
@@ -44,7 +51,7 @@ namespace AsyncInn.Models.Interfaces.Services
 
         public async Task Delete(int id)
         {
-            Amenity amenity = await GetAmenity(id);
+            Amenity amenity = await _context.Amenities.FindAsync(id);
             _context.Entry(amenity).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
             await _context.SaveChangesAsync();
         }

@@ -49,14 +49,22 @@ namespace AsyncInn.Data
                   {
                       Id = 3,
                       Name = "Room 1",
-                      Layout = 1
+                      Layout = "2 Rooms"
+                  }
+                );
+            modelBuilder.Entity<HotelRoom>().HasData(
+                  new HotelRoom
+                  {
+                      HotelId = 1,
+                      RoomId = 3,
+                      RoomNumber = 1
                   }
                 );
             modelBuilder.Entity<RoomAmenities>().HasKey(
-                roomAmenities => new { roomAmenities.AmenityId, roomAmenities.RoomId}
+                roomAmenities => new { roomAmenities.AmenityId, roomAmenities.RoomId }
                 );
             modelBuilder.Entity<HotelRoom>().HasKey(
-                hotelRoom => new { hotelRoom.HotelId, hotelRoom.RoomId}
+                hotelRoom => new { hotelRoom.HotelId, hotelRoom.RoomId }
                 );
         }
     }

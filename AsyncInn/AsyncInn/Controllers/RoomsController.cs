@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AsyncInn.Data;
 using AsyncInn.Models;
 using AsyncInn.Models.Interfaces;
+using AsyncInn.Models.DTO;
 
 namespace AsyncInn.Controllers
 {
@@ -32,9 +33,9 @@ namespace AsyncInn.Controllers
 
         // GET: api/Rooms/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Room>> GetRoom(int id)
+        public async Task<ActionResult<RoomDTO>> GetRoom(int id)
         {
-            Room room = await _room.GetRoom(id);
+            RoomDTO room = await _room.GetRoom(id);
             return room;
         }
 
@@ -65,6 +66,7 @@ namespace AsyncInn.Controllers
             return CreatedAtAction("GetRoom", new { id = room.Id }, room);
         }
 
+
         // DELETE: api/Rooms/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRoom(int id)
@@ -73,5 +75,21 @@ namespace AsyncInn.Controllers
             return NoContent();
         }
 
+        //-------------------------------------------------------------------------------//
+        [HttpPost]
+        [Route("{roomId}/{amenityId}")]
+        public async Task<IActionResult> AddAmenityToRoom(int roomId, int AmenityId)
+        {
+            await _room.AddAmenityToRoom(roomId, AmenityId);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        [Route("{roomId}/{amenityId}")]
+        public async Task<IActionResult> RemoveAmenityFromRoom(int roomId, int AmenityId)
+        {
+            await _room.RemoveAmenityFromRoom(roomId, AmenityId);
+            return NoContent();
+        }
     }
 }
