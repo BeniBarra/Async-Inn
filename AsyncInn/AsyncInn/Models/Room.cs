@@ -14,11 +14,11 @@ namespace AsyncInn.Models
         [Required]
         public string Name { get; set; }
         [Required]
-        public int Layout { get; set; }
+        public string Layout { get; set; }
 
                 //Navigation properties
-        public List<Amenity> Amenity { get; set; }
+        public List<HotelRoom> HotelRooms { get; set; }
 
-        public List<RoomAmenities> RoomAmenities { get; set; }
+        public List<Amenity> RoomAmenities { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AsyncInn.Data;
+using AsyncInn.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -25,14 +26,25 @@ namespace AsyncInn.Models.Interfaces.Services
 
         public async Task<List<Room>> GetAllRooms()
         {
-            var rooms = await _context.Rooms.ToListAsync();
-            return rooms;
+            return await _context.Rooms
+                                 .Include(r => r.HotelRooms)
+                                 .ThenInclude(hR => hR.Hotel)
+                                 .ToListAsync();
         }
 
-        public async Task<Room> GetRoom(int id)
+        public async Task<RoomDTO> GetRoom(int id)
         {
-            Room room = await _context.Rooms.FindAsync(id);
-            return room;
+            //return await _context.Rooms
+            //                     .Include(r => r.HotelRooms)
+            //                     .ThenInclude(hR => hR.Hotel)
+            //                     .FirstOrDefaultAsync(h => h.Id == id);
+            return await _context.Rooms
+                .Select(room => new RoomDTO
+                {
+                    ID = room.Id,
+                    Name = room.Name,
+                    Layout = room.Layout
+                }).FirstOrDefaultAsync(r => r.ID == id);
         }
 
         public async Task<Room> UpdateRoom(int id, Room room)
@@ -44,19 +56,37 @@ namespace AsyncInn.Models.Interfaces.Services
 
         public async Task Delete(int id)
         {
-            Room room = await GetRoom(id);
+            RoomDTO room = await GetRoom(id);
             _context.Entry(room).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
             await _context.SaveChangesAsync();
         }
 
-        public Task AddAmenityToRoom(int roomId, int amenityId)
+        public async Task AddAmenityToRoom(int roomId, int amenityId)
         {
-            throw new NotImplementedException();
+            RoomAmenities roomAmenities = new RoomAmenities()
+            {
+                AmenityId = amenityId,
+                RoomId = roomId
+            };
+
+            _context.Entry(roomAmenities).State = EntityState.Added;
+            await _context.SaveChangesAsync();
         }
 
-        public Task RemoveAmenityFromRoom(int roomId, int amenityId)
+        public async Task RemoveAmenityFromRoom(int roomId, int amenityId)
         {
-            throw new NotImplementedException();
+            Room room = await _context.Rooms.FindAsync(roomId);
+            List<Amenity> roomAmenities = room.RoomAmenities;
+            for (int i = 0; i < roomAmenities.Count; i++)
+            {
+                if(roomAmenities[i].Id == amenityId)
+                {
+                    _context.Entry(roomAmenities[i]).State = EntityState.Deleted;
+                    await _context.SaveChangesAsync();
+                    break;
+                }
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

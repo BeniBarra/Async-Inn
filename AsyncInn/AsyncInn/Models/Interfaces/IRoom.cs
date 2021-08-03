@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AsyncInn.Models.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace AsyncInn.Models.Interfaces
 
         Task<List<Room>> GetAllRooms();
 
-        Task<Room> GetRoom(int id);
+        Task<RoomDTO> GetRoom(int id);
 
         Task<Room> UpdateRoom(int id, Room room);
 
