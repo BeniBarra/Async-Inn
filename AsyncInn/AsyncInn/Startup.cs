@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,9 +33,23 @@ namespace AsyncInn
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");
                 options.UseSqlServer(connectionString);
             });
+
+            // SWAGGER: Definition Generator
+            services.AddSwaggerGen(options =>
+            {
+                // Make sure get the "using Statement"
+                options.SwaggerDoc("v1", new OpenApiInfo()
+                {
+                    Title = "AsyncInn",
+                    Version = "v1"
+                });
+            });
+
+            //Dependancy injection goes here
             services.AddTransient<IHotel, HotelServices>();
             services.AddTransient<IRoom, RoomServices>();
             services.AddTransient<IAmenity, AmenityServices>();
+            services.AddTransient<IHotelRoom, HotelRoomServices>();
             services.AddControllers().AddNewtonsoftJson(options => 
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
@@ -47,6 +62,17 @@ namespace AsyncInn
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // SWAGGER - JSON DEFINITION
+            app.UseSwagger(options => {
+                options.RouteTemplate = "/api/{documentName}/swagger.json";
+            });
+
+            // SWAGGER: Interactive Documentation
+            app.UseSwaggerUI(options => {
+                options.SwaggerEndpoint("/api/v1/swagger.json", "AsyncInn");
+                options.RoutePrefix = string.Empty;
+            });
 
             app.UseRouting();
 

@@ -40,14 +40,14 @@ namespace AsyncInn.Data
             modelBuilder.Entity<Amenity>().HasData(
                   new Amenity
                   {
-                      Id = 2,
+                      Id = 1,
                       Name = "Amenities 1",
                   }
                 );
             modelBuilder.Entity<Room>().HasData(
                   new Room
                   {
-                      Id = 3,
+                      Id = 1,
                       Name = "Room 1",
                       Layout = "2 Rooms"
                   }
@@ -56,8 +56,7 @@ namespace AsyncInn.Data
                   new HotelRoom
                   {
                       HotelId = 1,
-                      RoomId = 3,
-                      RoomNumber = 1
+                      RoomId = 1,
                   }
                 );
             modelBuilder.Entity<RoomAmenities>().HasKey(

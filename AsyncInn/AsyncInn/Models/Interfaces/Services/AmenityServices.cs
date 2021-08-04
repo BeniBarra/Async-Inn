@@ -17,17 +17,31 @@ namespace AsyncInn.Models.Interfaces.Services
             _context = context;
         }
 
-        public async Task<Amenity> Create(Amenity amenity)
+        public async Task<Amenity> Create(AmenityDTO inBoundAmenity)
         {
+            Amenity amenity = new Amenity()
+            {
+                Id = inBoundAmenity.Id,
+                Name = inBoundAmenity.Name
+            };
             _context.Entry(amenity).State = Microsoft.EntityFrameworkCore.EntityState.Added;
             await _context.SaveChangesAsync();
+
+
+
             return amenity;
         }
 
-        public async Task<List<Amenity>> GetAllAmenities()
+        public async Task<List<AmenityDTO>> GetAllAmenities()
         {
-            var amenities = await _context.Amenities.ToListAsync();
-            return amenities;
+            //var amenities = await _context.Amenities.ToListAsync();
+            //return amenities;
+            return await _context.Amenities
+                .Select(amenity => new AmenityDTO
+                {
+                    Id = amenity.Id,
+                    Name = amenity.Name
+                }).ToListAsync();
         }
 
         public async Task<AmenityDTO> GetAmenity(int id)

@@ -51,7 +51,7 @@ namespace AsyncInn.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 2,
+                            Id = 1,
                             Name = "Amenities 1"
                         });
                 });
@@ -112,9 +112,6 @@ namespace AsyncInn.Migrations
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RoomNumber")
-                        .HasColumnType("int");
-
                     b.HasKey("HotelId", "RoomId");
 
                     b.HasIndex("RoomId");
@@ -125,8 +122,7 @@ namespace AsyncInn.Migrations
                         new
                         {
                             HotelId = 1,
-                            RoomId = 3,
-                            RoomNumber = 1
+                            RoomId = 1
                         });
                 });
 
@@ -152,7 +148,7 @@ namespace AsyncInn.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 3,
+                            Id = 1,
                             Layout = "2 Rooms",
                             Name = "Room 1"
                         });
