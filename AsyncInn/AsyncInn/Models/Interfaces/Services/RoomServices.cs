@@ -24,12 +24,25 @@ namespace AsyncInn.Models.Interfaces.Services
             return room;
         }
 
-        public async Task<List<Room>> GetAllRooms()
+        public async Task<List<RoomDTO>> GetAllRooms()
         {
+            //return await _context.Rooms
+            //                     .Include(r => r.HotelRooms)
+            //                     .ThenInclude(hR => hR.Hotel)
+            //                     .ToListAsync();
             return await _context.Rooms
-                                 .Include(r => r.HotelRooms)
-                                 .ThenInclude(hR => hR.Hotel)
-                                 .ToListAsync();
+                .Select(room => new RoomDTO
+                {
+                    ID = room.Id,
+                    Name = room.Name,
+                    Layout = room.Layout,
+                    Amenities = room.RoomAmenities
+                        .Select(ra => new AmenityDTO
+                        {
+                            Id = ra.Id,
+                            Name = ra.Name
+                        }).ToList()
+                }).ToListAsync();
         }
 
         public async Task<RoomDTO> GetRoom(int id)
@@ -43,7 +56,13 @@ namespace AsyncInn.Models.Interfaces.Services
                 {
                     ID = room.Id,
                     Name = room.Name,
-                    Layout = room.Layout
+                    Layout = room.Layout,
+                    Amenities = room.RoomAmenities
+                        .Select(ra => new AmenityDTO
+                        {
+                            Id = ra.Id,
+                            Name = ra.Name
+                        }).ToList()
                 }).FirstOrDefaultAsync(r => r.ID == id);
         }
 

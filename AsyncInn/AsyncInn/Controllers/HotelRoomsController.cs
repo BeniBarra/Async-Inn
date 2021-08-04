@@ -25,33 +25,30 @@ namespace AsyncInn.Controllers
 
         // GET: api/HotelRooms
         [HttpGet]
-        [Route("Hotels/{hotelId}/Rooms/{roomNumber}")]
-        public async Task<ActionResult<IEnumerable<HotelRoom>>> GetHotelRooms()
+        public async Task<ActionResult<IEnumerable<HotelRoomDTO>>> GetHotelRooms()
         {
             var list = await _hotelRoom.GetHotelRooms();
             return Ok(list);
         }
 
         // GET: api/HotelRooms/5
-        [HttpGet("{id}")]
-        [Route("Hotels/{hotelId}/Rooms/{roomNumber}")]
-        public async Task<ActionResult<HotelRoomDTO>> GetHotelRoom(int id)
+        [HttpGet("Hotels/{hotelId}/Rooms/{roomId}")]
+        public async Task<ActionResult<HotelRoomDTO>> GetHotelRoom(int hotelId, int roomId)
         {
-            HotelRoomDTO hotelRoom = await _hotelRoom.GetHotelRoom(id);
+            HotelRoomDTO hotelRoom = await _hotelRoom.GetHotelRoom(hotelId, roomId);
             return hotelRoom;
         }
 
         // PUT: api/HotelRooms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        [Route("Hotels/{hotelId}/Rooms/{roomNumber}")]
-        public async Task<IActionResult> PutHotelRoom(int hotelId, int roomNumber, HotelRoom hotelRoom)
+        [HttpPut("Hotels/{hotelId}/Rooms/{roomId}")]
+        public async Task<IActionResult> PutHotelRoom(int hotelId, int roomId, HotelRoom hotelRoom)
         {
-            if (hotelId != hotelRoom.HotelId || roomNumber != hotelRoom.RoomNumber)
+            if (hotelId != hotelRoom.HotelId || roomId != hotelRoom.RoomId)
             {
                 return BadRequest();
             }
-            var updateHotelRoom = await _hotelRoom.UpdateHotelRoom(hotelId, roomNumber, hotelRoom);
+            var updateHotelRoom = await _hotelRoom.UpdateHotelRoom(hotelId, roomId, hotelRoom);
             return Ok(updateHotelRoom);
         }
 
@@ -67,7 +64,7 @@ namespace AsyncInn.Controllers
 
         // DELETE: api/HotelRooms/5
         [HttpDelete("{id}")]
-        [Route("Hotels/{hotelId}/Rooms/{roomNumber}")]
+        [Route("Hotels/{hotelId}/Rooms/{roomId}")]
         public async Task<IActionResult> DeleteHotelRoom(int id)
         {
             await _hotelRoom.Delete(id);

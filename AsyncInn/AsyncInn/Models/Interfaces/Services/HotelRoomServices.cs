@@ -22,7 +22,7 @@ namespace AsyncInn.Models.Interfaces.Services
             return hotelRoom;
         }
 
-        public async Task<HotelRoomDTO> GetHotelRoom(int id)
+        public async Task<HotelRoomDTO> GetHotelRoom(int hotelId, int roomId)
         {
             //HotelRoom hotelRoom = await _context.HotelRooms.FindAsync(id);
             //return hotelRoom;
@@ -30,7 +30,31 @@ namespace AsyncInn.Models.Interfaces.Services
                 .Select(hotelRooms => new HotelRoomDTO
                 {
                     HotelId = hotelRooms.HotelId,
-                    RoomNumber = hotelRooms.RoomNumber,
+                    RoomId = hotelRooms.RoomId,
+                    Room = hotelRooms.Room.HotelRooms
+                        .Select(r => new RoomDTO
+                    {
+                        ID = r.Room.Id,
+                        Name = r.Room.Name,
+                        Layout = r.Room.Layout,
+                        Amenities = r.Room.RoomAmenities
+                            .Select(ra => new AmenityDTO
+                            {
+                                Id = ra.Id,
+                                Name = ra.Name
+                            }).ToList()
+                    }).FirstOrDefault( r => r.ID == roomId)
+                }).FirstOrDefaultAsync(hr => hr.HotelId == hotelId && hr.RoomId == roomId);
+        }
+
+        public async Task<List<HotelRoomDTO>> GetHotelRooms()
+        {
+            //var hotelRooms = await _context.HotelRooms.ToListAsync();
+            //return hotelRooms;
+            return await _context.HotelRooms
+                .Select(hotelRooms => new HotelRoomDTO
+                {
+                    HotelId = hotelRooms.HotelId,
                     RoomId = hotelRooms.RoomId,
                     Room = new RoomDTO
                     {
@@ -38,14 +62,7 @@ namespace AsyncInn.Models.Interfaces.Services
                         Name = hotelRooms.Room.Name,
                         Layout = hotelRooms.Room.Layout
                     }
-                }
-                ).FirstOrDefaultAsync(hr => hr.HotelId == id );
-        }
-
-        public async Task<List<HotelRoom>> GetHotelRooms()
-        {
-            var hotelRooms = await _context.HotelRooms.ToListAsync();
-            return hotelRooms;
+                }).ToListAsync();
         }
 
         public async Task<HotelRoom> UpdateHotelRoom(int id, int roomNumber, HotelRoom hotelRoom)
@@ -54,6 +71,7 @@ namespace AsyncInn.Models.Interfaces.Services
             await _context.SaveChangesAsync();
             return hotelRoom;
         }
+
         public async Task Delete(int id)
         {
             HotelRoom hotelRoom = await _context.HotelRooms.FindAsync(id);

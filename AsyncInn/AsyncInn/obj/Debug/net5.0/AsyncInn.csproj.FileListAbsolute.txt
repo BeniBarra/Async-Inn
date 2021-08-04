@@ -131,3 +131,8 @@ C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\bin\Debug\net5.0\runtimes\
 C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\obj\Debug\net5.0\AsyncInn.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\bin\Debug\net5.0\Microsoft.OpenApi.dll
+C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
