@@ -5,6 +5,9 @@ C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\obj\Release\net5.0\PubTmp\
 C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\obj\Release\net5.0\PubTmp\Out\AsyncInn.runtimeconfig.json
 C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\obj\Release\net5.0\PubTmp\Out\AsyncInn.pdb
 C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\obj\Release\net5.0\PubTmp\Out\Humanizer.dll
+C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\obj\Release\net5.0\PubTmp\Out\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\obj\Release\net5.0\PubTmp\Out\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\obj\Release\net5.0\PubTmp\Out\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\obj\Release\net5.0\PubTmp\Out\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\obj\Release\net5.0\PubTmp\Out\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\obj\Release\net5.0\PubTmp\Out\Microsoft.AspNetCore.Razor.Language.dll
@@ -20,6 +23,8 @@ C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\obj\Release\net5.0\PubTmp\
 C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\obj\Release\net5.0\PubTmp\Out\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\obj\Release\net5.0\PubTmp\Out\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\obj\Release\net5.0\PubTmp\Out\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\obj\Release\net5.0\PubTmp\Out\Microsoft.Extensions.Identity.Core.dll
+C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\obj\Release\net5.0\PubTmp\Out\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\obj\Release\net5.0\PubTmp\Out\Microsoft.Identity.Client.dll
 C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\obj\Release\net5.0\PubTmp\Out\Microsoft.IdentityModel.JsonWebTokens.dll
 C:\Users\locoq\repo\Lab12-Async-Inn\AsyncInn\AsyncInn\obj\Release\net5.0\PubTmp\Out\Microsoft.IdentityModel.Logging.dll

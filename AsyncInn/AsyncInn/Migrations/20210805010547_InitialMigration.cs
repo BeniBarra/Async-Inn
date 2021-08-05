@@ -2,7 +2,7 @@
 
 namespace AsyncInn.Migrations
 {
-    public partial class InitalMigration : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,7 +44,7 @@ namespace AsyncInn.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Layout = table.Column<int>(type: "int", nullable: false)
+                    Layout = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -80,8 +80,7 @@ namespace AsyncInn.Migrations
                 columns: table => new
                 {
                     HotelId = table.Column<int>(type: "int", nullable: false),
-                    RoomId = table.Column<int>(type: "int", nullable: false),
-                    RoomNumber = table.Column<int>(type: "int", nullable: false)
+                    RoomId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -127,7 +126,7 @@ namespace AsyncInn.Migrations
             migrationBuilder.InsertData(
                 table: "Amenities",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { 2, "Amenities 1" });
+                values: new object[] { 1, "Amenities 1" });
 
             migrationBuilder.InsertData(
                 table: "Hotels",
@@ -137,12 +136,12 @@ namespace AsyncInn.Migrations
             migrationBuilder.InsertData(
                 table: "Rooms",
                 columns: new[] { "Id", "Layout", "Name" },
-                values: new object[] { 3, 1, "Room 1" });
+                values: new object[] { 1, "2 Rooms", "Room 1" });
 
             migrationBuilder.InsertData(
                 table: "HotelRooms",
-                columns: new[] { "HotelId", "RoomId", "RoomNumber" },
-                values: new object[] { 1, 3, 1 });
+                columns: new[] { "HotelId", "RoomId" },
+                values: new object[] { 1, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AmenityRoom_RoomAmenitiesId1",
