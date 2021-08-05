@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AsyncInn.Migrations
 {
     [DbContext(typeof(AsyncInnDbContext))]
-    [Migration("20210803004412_InitalMigration")]
-    partial class InitalMigration
+    [Migration("20210805010547_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,7 +53,7 @@ namespace AsyncInn.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 2,
+                            Id = 1,
                             Name = "Amenities 1"
                         });
                 });
@@ -114,9 +114,6 @@ namespace AsyncInn.Migrations
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RoomNumber")
-                        .HasColumnType("int");
-
                     b.HasKey("HotelId", "RoomId");
 
                     b.HasIndex("RoomId");
@@ -127,8 +124,7 @@ namespace AsyncInn.Migrations
                         new
                         {
                             HotelId = 1,
-                            RoomId = 3,
-                            RoomNumber = 1
+                            RoomId = 1
                         });
                 });
 
@@ -139,8 +135,9 @@ namespace AsyncInn.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Layout")
-                        .HasColumnType("int");
+                    b.Property<string>("Layout")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -153,8 +150,8 @@ namespace AsyncInn.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 3,
-                            Layout = 1,
+                            Id = 1,
+                            Layout = "2 Rooms",
                             Name = "Room 1"
                         });
                 });

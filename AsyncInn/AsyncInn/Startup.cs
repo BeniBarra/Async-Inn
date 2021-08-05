@@ -1,9 +1,11 @@
 using AsyncInn.Data;
+using AsyncInn.Models;
 using AsyncInn.Models.Interfaces;
 using AsyncInn.Models.Interfaces.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,7 +47,13 @@ namespace AsyncInn
                 });
             });
 
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+                {
+                    options.User.RequireUniqueEmail = true;
+                }).AddEntityFrameworkStores<AsyncInnDbContext>();
+
             //Dependancy injection goes here
+            services.AddTransient<IUser, IdUserService>();
             services.AddTransient<IHotel, HotelServices>();
             services.AddTransient<IRoom, RoomServices>();
             services.AddTransient<IAmenity, AmenityServices>();
@@ -71,7 +79,7 @@ namespace AsyncInn
             // SWAGGER: Interactive Documentation
             app.UseSwaggerUI(options => {
                 options.SwaggerEndpoint("/api/v1/swagger.json", "AsyncInn");
-                options.RoutePrefix = string.Empty;
+                options.RoutePrefix = "";
             });
 
             app.UseRouting();
