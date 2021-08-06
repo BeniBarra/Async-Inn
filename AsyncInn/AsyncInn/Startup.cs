@@ -2,6 +2,7 @@ using AsyncInn.Data;
 using AsyncInn.Models;
 using AsyncInn.Models.Interfaces;
 using AsyncInn.Models.Interfaces.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -30,11 +31,14 @@ namespace AsyncInn
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AsyncInnDbContext>(options => {
+            services.AddDbContext<AsyncInnDbContext>(options =>
+            {
                 // Our DATABASE_URL from js days
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");
                 options.UseSqlServer(connectionString);
             });
+
+
 
             // SWAGGER: Definition Generator
             services.AddSwaggerGen(options =>
@@ -52,13 +56,33 @@ namespace AsyncInn
                     options.User.RequireUniqueEmail = true;
                 }).AddEntityFrameworkStores<AsyncInnDbContext>();
 
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+              {
+                  // Tell the authenticaion scheme "how/where" to validate the token + secret
+                  options.TokenValidationParameters = JwtTokenService.GetValidationParameters(Configuration);
+              });
+
+            services.AddAuthorization(options =>
+            {
+                // Add "Name of Policy", and the Lambda returns a definition
+                options.AddPolicy("create", policy => policy.RequireClaim("permissions", "create"));
+                options.AddPolicy("update", policy => policy.RequireClaim("permissions", "update"));
+                options.AddPolicy("delete", policy => policy.RequireClaim("permissions", "delete"));
+            });
+
             //Dependancy injection goes here
+            services.AddScoped<JwtTokenService>();
             services.AddTransient<IUser, IdUserService>();
             services.AddTransient<IHotel, HotelServices>();
             services.AddTransient<IRoom, RoomServices>();
             services.AddTransient<IAmenity, AmenityServices>();
             services.AddTransient<IHotelRoom, HotelRoomServices>();
-            services.AddControllers().AddNewtonsoftJson(options => 
+            services.AddControllers().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
         }
@@ -72,17 +96,21 @@ namespace AsyncInn
             }
 
             // SWAGGER - JSON DEFINITION
-            app.UseSwagger(options => {
+            app.UseSwagger(options =>
+            {
                 options.RouteTemplate = "/api/{documentName}/swagger.json";
             });
 
             // SWAGGER: Interactive Documentation
-            app.UseSwaggerUI(options => {
+            app.UseSwaggerUI(options =>
+            {
                 options.SwaggerEndpoint("/api/v1/swagger.json", "AsyncInn");
                 options.RoutePrefix = "";
             });
 
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

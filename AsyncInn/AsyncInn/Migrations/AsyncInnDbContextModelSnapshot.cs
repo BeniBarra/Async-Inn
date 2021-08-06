@@ -260,6 +260,29 @@ namespace AsyncInn.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "administrator",
+                            ConcurrencyStamp = "00000000-0000-0000-0000-000000000000",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        },
+                        new
+                        {
+                            Id = "manager",
+                            ConcurrencyStamp = "00000000-0000-0000-0000-000000000000",
+                            Name = "Manager",
+                            NormalizedName = "MANAGER"
+                        },
+                        new
+                        {
+                            Id = "supervisor",
+                            ConcurrencyStamp = "00000000-0000-0000-0000-000000000000",
+                            Name = "Supervisor",
+                            NormalizedName = "SUPERVISOR"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -284,6 +307,50 @@ namespace AsyncInn.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ClaimType = "permissions",
+                            ClaimValue = "create",
+                            RoleId = "administrator"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ClaimType = "permissions",
+                            ClaimValue = "update",
+                            RoleId = "administrator"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ClaimType = "permissions",
+                            ClaimValue = "delete",
+                            RoleId = "administrator"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ClaimType = "permissions",
+                            ClaimValue = "create",
+                            RoleId = "manager"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ClaimType = "permissions",
+                            ClaimValue = "update",
+                            RoleId = "manager"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ClaimType = "permissions",
+                            ClaimValue = "create",
+                            RoleId = "supervisor"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace AsyncInn.Models.Interfaces.Services
@@ -11,10 +12,12 @@ namespace AsyncInn.Models.Interfaces.Services
     public class IdUserService : IUser
     {
         private UserManager<ApplicationUser> _userManager;
+        private JwtTokenService _tokenService;
 
-        public IdUserService(UserManager<ApplicationUser> manager)
+        public IdUserService(UserManager<ApplicationUser> manager, JwtTokenService jwtTokenService)
         {
             _userManager = manager;
+            _tokenService = jwtTokenService;
         }
 
         public async Task<UserDTO> Login(string username, string password)
@@ -26,7 +29,8 @@ namespace AsyncInn.Models.Interfaces.Services
                 return new UserDTO
                 {
                     Id = user.Id,
-                    Username = user.UserName
+                    Username = user.UserName,
+                    Token = await _tokenService.GetToken(user, System.TimeSpan.FromMinutes(15))
                 };
             }
             return null;
@@ -45,14 +49,18 @@ namespace AsyncInn.Models.Interfaces.Services
 
             if (result.Succeeded)
             {
+                // Because we have a "Good" user, let's add them to their proper role
+                await _userManager.AddToRolesAsync(user, data.Roles);
                 return new UserDTO
                 {
                     Id = user.Id,
-                    Username = user.UserName
+                    Username = user.UserName,
+                    Token = await _tokenService.GetToken(user, System.TimeSpan.FromMinutes(15)),
+                    Roles = await _userManager.GetRolesAsync(user)
                 };
             }
 
-            foreach(var error in result.Errors)
+            foreach (var error in result.Errors)
             {
                 var errorKey =
                     error.Code.Contains("Password") ? nameof(data.Password) :
@@ -66,5 +74,14 @@ namespace AsyncInn.Models.Interfaces.Services
             return null;
         }
 
+        public async Task<UserDTO> GetUserAsync(ClaimsPrincipal principal)
+        {
+            var user = await _userManager.GetUserAsync(principal);
+            return new UserDTO
+            {
+                Id = user.Id,
+                Username = user.UserName
+            };
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AsyncInn.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -65,6 +66,37 @@ namespace AsyncInn.Data
             modelBuilder.Entity<HotelRoom>().HasKey(
                 hotelRoom => new { hotelRoom.HotelId, hotelRoom.RoomId }
                 );
+
+            SeedRole(modelBuilder, "Administrator", "create", "update", "delete");
+            SeedRole(modelBuilder, "Manager", "create", "update");
+            SeedRole(modelBuilder, "Supervisor", "create");
         }
+
+        private int nextId = 1;
+        private void SeedRole(ModelBuilder modelBuilder, string roleName, params string[] permissions)
+        {
+            var role = new IdentityRole
+            {
+                Id = roleName.ToLower(),
+                Name = roleName,
+                NormalizedName = roleName.ToUpper(),
+                ConcurrencyStamp = Guid.Empty.ToString()
+            };
+
+            modelBuilder.Entity<IdentityRole>().HasData(role);
+
+            // Go through the permissions list (the params) and seed a new entry for each
+            var roleClaims = permissions.Select(permission =>
+            new IdentityRoleClaim<string>
+            {
+                Id = nextId++,
+                RoleId = role.Id,
+                ClaimType = "permissions", // This matches what we did in Startup.cs
+                ClaimValue = permission
+            }).ToArray();
+
+            modelBuilder.Entity<IdentityRoleClaim<string>>().HasData(roleClaims);
+        }
+
     }
 }
