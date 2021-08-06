@@ -41,7 +41,7 @@ namespace AsyncInn.Controllers
 
         // PUT: api/HotelRooms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("Hotels/{hotelId}/Rooms/{roomId}")]
+        [HttpPut("Hotels/{hotelId}/Rooms/{roomId}/HotelRooms/{hotelRoom}")]
         public async Task<IActionResult> PutHotelRoom(int hotelId, int roomId, HotelRoom hotelRoom)
         {
             if (hotelId != hotelRoom.HotelId || roomId != hotelRoom.RoomId)
@@ -55,7 +55,7 @@ namespace AsyncInn.Controllers
         // POST: api/HotelRooms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [Route("Hotels/{hotelId}/Rooms")]
+        [Route("Hotels/{hotelroom}/Rooms")]
         public async Task<ActionResult<HotelRoom>> PostHotelRoom(HotelRoom hotelRoom)
         {
             await _hotelRoom.Create(hotelRoom);

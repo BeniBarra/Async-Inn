@@ -27,8 +27,6 @@ namespace AsyncInn.Models.Interfaces.Services
             _context.Entry(amenity).State = Microsoft.EntityFrameworkCore.EntityState.Added;
             await _context.SaveChangesAsync();
 
-
-
             return amenity;
         }
 
